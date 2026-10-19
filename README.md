@@ -21,6 +21,20 @@ Reference:  SELECT COUNT(goals_against) FROM table_name_97 WHERE played > 34
 Base model: ```sql SELECT COUNT(goals_against) FROM table_name_97 WHERE played > 34; ```
 Fine-tuned: SELECT COUNT(goals_against) FROM table_name_97 WHERE played > 34
 ```
+## Demo
+
+I ran the published adapter in a Gradio app on a free Colab GPU and tried a few inputs of my own. These are screenshots from that session, not a measured result. The accuracy figure above comes from the 200-question test set.
+**Aggregate on a new schema**
+<img width="1920" height="988" alt="salary" src="https://github.com/user-attachments/assets/96a0bf8e-191b-486f-925d-44dfeca99b7f" />
+
+**Filter on a text column**
+<img width="1920" height="990" alt="demo-pune" src="https://github.com/user-attachments/assets/bb1f837d-3217-45f2-b9d6-a863727dd1e6" />
+
+**A simple two-table join.** The query joins on the right columns, but it has no `DISTINCT`, so a customer with several orders would be listed several times. I only tried this one join.
+<img width="1920" height="979" alt="demo-join" src="https://github.com/user-attachments/assets/be2d6d43-fc1d-4dc1-b45e-440eb6fd0946" />
+
+**Wrong aggregation.** For "How many heads are older than 56?" the model returned `SUM(age)`. The correct query is `SELECT COUNT(*) FROM head WHERE age > 56`.
+<img width="1920" height="983" alt="demo-failure-sum" src="https://github.com/user-attachments/assets/8861ce96-0b70-4bbb-b2c8-d5fcb7598f4c" />
 
 # Setup
 
